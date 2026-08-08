@@ -1,0 +1,53 @@
+<div class="card">
+  <h2>📝 Nuevo Ticket</h2>
+
+  <form (ngSubmit)="onSubmit()" #f="ngForm">
+    <div class="field">
+      <label for="titulo">Título</label>
+      <input id="titulo" name="titulo" [(ngModel)]="ticket.titulo" required maxlength="120" />
+    </div>
+
+    <div class="field">
+      <label for="solicitante">Solicitante</label>
+      <input id="solicitante" name="solicitante" [(ngModel)]="ticket.solicitante" required />
+    </div>
+
+    <div class="field">
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" name="descripcion" rows="4" [(ngModel)]="ticket.descripcion" required></textarea>
+    </div>
+
+    <div class="field">
+      <label for="categoria">Categoría</label>
+      <select id="categoria" name="categoria" [(ngModel)]="ticket.categoria">
+        <option>Hardware</option>
+        <option>Software</option>
+        <option>Red</option>
+        <option>Cuentas</option>
+        <option>Otro</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="prioridad">Prioridad</label>
+      <select id="prioridad" name="prioridad" [(ngModel)]="ticket.prioridad">
+        <option>Baja</option>
+        <option>Media</option>
+        <option>Alta</option>
+        <option>Crítica</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="tecnicoAsignado">Técnico asignado (opcional)</label>
+      <input id="tecnicoAsignado" name="tecnicoAsignado" [(ngModel)]="ticket.tecnicoAsignado" />
+    </div>
+
+    <button class="primary" type="submit" [disabled]="f.invalid || enviando">
+      {{ enviando ? 'Guardando...' : 'Crear ticket' }}
+    </button>
+
+    <p *ngIf="mensaje" style="color:#166534; margin-top:10px;">{{ mensaje }}</p>
+    <p *ngIf="error" style="color:#dc2626; margin-top:10px;">{{ error }}</p>
+  </form>
+</div>

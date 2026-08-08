@@ -1,0 +1,52 @@
+<div class="card">
+  <h2>📋 Lista de Tickets</h2>
+
+  <div class="field" style="max-width:220px;">
+    <label for="filtro">Filtrar por estado</label>
+    <select id="filtro" [(ngModel)]="filtroEstado">
+      <option value="">Todos</option>
+      <option>Abierto</option>
+      <option>En proceso</option>
+      <option>Resuelto</option>
+      <option>Cerrado</option>
+    </select>
+  </div>
+
+  <p *ngIf="cargando">Cargando tickets desde la API...</p>
+  <p *ngIf="error" style="color:#dc2626">{{ error }}</p>
+
+  <table *ngIf="!cargando && ticketsFiltrados.length">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Solicitante</th>
+        <th>Categoría</th>
+        <th>Prioridad</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of ticketsFiltrados">
+        <td>{{ t.titulo }}</td>
+        <td>{{ t.solicitante }}</td>
+        <td>{{ t.categoria }}</td>
+        <td>{{ t.prioridad }}</td>
+        <td>
+          <span class="badge" [ngClass]="claseBadge(t.estado)">{{ t.estado }}</span>
+        </td>
+        <td>
+          <select (change)="cambiarEstado(t, $any($event.target).value)">
+            <option [selected]="t.estado === 'Abierto'">Abierto</option>
+            <option [selected]="t.estado === 'En proceso'">En proceso</option>
+            <option [selected]="t.estado === 'Resuelto'">Resuelto</option>
+            <option [selected]="t.estado === 'Cerrado'">Cerrado</option>
+          </select>
+          <button class="danger" (click)="eliminar(t)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!cargando && !ticketsFiltrados.length">No hay tickets para mostrar.</p>
+</div>

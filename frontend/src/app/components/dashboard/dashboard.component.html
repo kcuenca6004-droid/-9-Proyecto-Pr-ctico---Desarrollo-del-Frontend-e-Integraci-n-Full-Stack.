@@ -1,0 +1,33 @@
+<div class="card">
+  <h2>📊 Dashboard de Tickets</h2>
+
+  <p *ngIf="cargando">Cargando resumen desde la API...</p>
+  <p *ngIf="error" style="color:#dc2626">{{ error }}</p>
+
+  <div *ngIf="resumen" class="summary-grid">
+    <div class="summary-item">
+      <div class="num">{{ resumen.total }}</div>
+      <div>Total de tickets</div>
+    </div>
+    <div class="summary-item">
+      <div class="num">{{ totalPorEstado('Abierto') }}</div>
+      <div>Abiertos</div>
+    </div>
+    <div class="summary-item">
+      <div class="num">{{ totalPorEstado('En proceso') }}</div>
+      <div>En proceso</div>
+    </div>
+    <div class="summary-item">
+      <div class="num">{{ totalPorEstado('Resuelto') }}</div>
+      <div>Resueltos</div>
+    </div>
+    <div class="summary-item">
+      <div class="num">{{ totalPorEstado('Cerrado') }}</div>
+      <div>Cerrados</div>
+    </div>
+  </div>
+
+  <button class="primary" (click)="cargarResumen()" style="margin-top:16px;">
+    🔄 Actualizar
+  </button>
+</div>
